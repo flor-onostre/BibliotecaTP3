@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -82,6 +83,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\BibliotecaPruebaDataSet.cs">
+      <DependentUpon>BibliotecaPruebaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\BibliotecaPruebaDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

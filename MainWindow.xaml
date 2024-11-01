@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:biblioteca"
         mc:Ignorable="d"
-        Title="Biblioteca" Height="500" Width="1000"
+        Title="Biblioteca" Height="1000" Width="1840"
         FontFamily="Poppins"
         WindowStartupLocation="CenterScreen">
 
@@ -17,43 +17,46 @@
                 Padding="10" 
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center"
-                Background="{DynamicResource Texto1}">
+                Background="{DynamicResource Texto1}"
+                Height="800"
+                Width="1640">
             <!--Pestañas-->
-            <TabControl Style="{DynamicResource TabControlStyle}" SelectionChanged="TabControl_SelectionChanged">
+            <TabControl Style="{DynamicResource TabControlStyle}" SelectionChanged="TabControl_SelectionChanged" Width="1600" Height="760">
                 <!--Pestaña Libros-->
                 <TabItem Header="Libros" 
                          Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Border BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" />
+                        <Border BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Height="400" />
                         <!--Ingreso de datos de libros-->
-                        <StackPanel Grid.Column="0" Margin="10,10,10,10" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="0" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="AgregarLibro" Text="AGREGAR LIBRO" Style="{DynamicResource Titulo1}" HorizontalAlignment="Center" Margin="0 10 0 0"/>
                             <TextBox x:Name="TituloTextBox" MaxLength="30" Style="{DynamicResource TextBoxes}" Tag="Título" ></TextBox>
                             <TextBox x:Name="AutorTextBox" MaxLength="50" Style="{DynamicResource TextBoxes}" Tag="Autor" ></TextBox>
                             <TextBox x:Name="EditorialTextBox" MaxLength="30" Style="{DynamicResource TextBoxes}" Tag="Editorial" ></TextBox>
-                            <TextBox x:Name="UbiTextBox" MaxLength="50" Style="{DynamicResource TextBoxes}" Tag="Ubicación" ></TextBox>
-                            <TextBox x:Name="RecibidosTextBox" MaxLength="10" Style="{DynamicResource TextBoxes}" Tag="Cantidad Recibidos" Cursor="IBeam"></TextBox>
+                            <TextBox x:Name="UbicacionTextBox" MaxLength="50" Style="{DynamicResource TextBoxes}" Tag="Ubicación" ></TextBox>
+                            <TextBox x:Name="EjemplaresTextBox" MaxLength="10" Style="{DynamicResource TextBoxes}" Tag="Cantidad Ejemplares" Cursor="IBeam"/>
                             <!--Botón para guardar los datos-->
-                            <Button x:Name="Guardar" Content="Guardar" Width="auto" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" Margin="20"/>
+                            <Button x:Name="Guardar" Content="Guardar" Width="auto" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" Margin="20" Click="Guardar_Click"/>
                         </StackPanel>
                         <Border Grid.Column="2" BorderThickness="1" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Margin="10,0,0,0"/>
                         <!--Data grid para Mostrar los Libros Guardados-->
                         <DataGrid Name="LibrosDataGrid" Grid.Column="2" Margin="20 10 10 10" AutoGenerateColumns="false" ItemsSource="{Binding Libros}"
                                   SelectionChanged="LibrosDataGrid_SelectionChanged"
-                                  Width="600">
+                                  Width="1240"
+                                  HorizontalAlignment="Center">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*"/>
                                 <DataGridTextColumn Header="Autor"  Binding="{Binding Autor}" Width="*"/>
                                 <DataGridTextColumn Header="Editorial" Binding="{Binding Editorial}" Width="*"/>
                                 <DataGridTextColumn Header="Ubicación" Binding="{Binding Ubicacion}" Width="*"/>
-                                <DataGridTextColumn Header="Recibidos" Binding="{Binding Recibidos}" Width="*"/>
+                                <DataGridTextColumn Header="Cantidad Ejemplares" Binding="{Binding Recibidos}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
