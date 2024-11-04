@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Linq;
 using System;
 using System.Data.SqlClient;
+using BibliotecaTP3;
 
 namespace biblioteca
 {
@@ -122,13 +123,14 @@ namespace biblioteca
 
 
 
+
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 miConexionSql.Open();
 
-                // Inserta el libro en la tabla LIBRO
+                // Elimina el libro de la tabla LIBRO
                 string consultaLibro = "DELETE FROM LIBRO WHERE IdLibro=@IDLIBRO";
                 SqlCommand miSqlCommand = new SqlCommand(consultaLibro, miConexionSql);
 
@@ -150,6 +152,48 @@ namespace biblioteca
 
             MuestraLibros(); // Actualiza la lista de libros
         }
+
+
+
+
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
+        {
+            if (LibrosDataGrid.SelectedValue == null)
+            {
+                MessageBox.Show("Por favor, selecciona un libro.");
+                return;
+            }
+
+            VentanaActualizar ventanaActualizar = new VentanaActualizar((int)LibrosDataGrid.SelectedValue);
+
+            string consulta = "SELECT Título, Autor, Editorial, Ubicación FROM LIBRO WHERE IdLibro=@IDLIBRO";
+
+            SqlCommand miSqlCommand = new SqlCommand(consulta, miConexionSql);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(miSqlCommand);
+
+            using (adapter)
+            {
+                miSqlCommand.Parameters.AddWithValue("@IDLIBRO", LibrosDataGrid.SelectedValue);
+
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    ventanaActualizar.TituloActualizaTextBox.Text = dataTable.Rows[0]["Título"].ToString();
+                    ventanaActualizar.AutorActualizaTextBox.Text = dataTable.Rows[0]["Autor"].ToString();
+                    ventanaActualizar.EditorialActualizaTextBox.Text = dataTable.Rows[0]["Editorial"].ToString();
+                    ventanaActualizar.UbicacionActualizaTextBox.Text = dataTable.Rows[0]["Ubicación"].ToString();
+                }
+            }
+
+            ventanaActualizar.ShowDialog();
+
+            MuestraLibros();
+        }
+
+
 
 
 
@@ -180,10 +224,6 @@ namespace biblioteca
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
         private void LibrosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
 
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
 
