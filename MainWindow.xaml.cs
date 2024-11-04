@@ -122,6 +122,36 @@ namespace biblioteca
 
 
 
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                miConexionSql.Open();
+
+                // Inserta el libro en la tabla LIBRO
+                string consultaLibro = "DELETE FROM LIBRO WHERE IdLibro=@IDLIBRO";
+                SqlCommand miSqlCommand = new SqlCommand(consultaLibro, miConexionSql);
+
+                miSqlCommand.Parameters.AddWithValue("@IDLIBRO", LibrosDataGrid.SelectedValue);
+
+                miSqlCommand.ExecuteNonQuery(); // Ejecutar el comando
+
+                miConexionSql.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el libro: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Cerrar la conexión
+                miConexionSql.Close();
+            }
+
+            MuestraLibros(); // Actualiza la lista de libros
+        }
+
+
 
         private void GuardarPrestamo_Click(object sender, RoutedEventArgs e)
         {
@@ -149,6 +179,11 @@ namespace biblioteca
         }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
         private void LibrosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 

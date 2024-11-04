@@ -60,8 +60,8 @@
                                 <DataGridTextColumn Header="Ubicación" Binding="{Binding Ubicación}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="Modificar" Content="Actualizar" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8"/>
-                        <Button x:Name="Eliminar" Content="Eliminar" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8"/>
+                        <Button x:Name="Actualizar" Content="Actualizar" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8" Click="Actualizar_Click"/>
+                        <Button x:Name="Eliminar" Content="Eliminar" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8" Margin="0,14,0,0" VerticalAlignment="Top" Click="Eliminar_Click"/>
                     </Grid>
                 </TabItem>
                 <!--Pestaña Préstamos-->
