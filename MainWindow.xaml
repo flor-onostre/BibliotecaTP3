@@ -29,36 +29,39 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Border BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Height="400" />
+                        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Height="400" />
                         <!--Ingreso de datos de libros-->
-                        <StackPanel Grid.Column="0" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="AgregarLibro" Text="AGREGAR LIBRO" Style="{DynamicResource Titulo1}" HorizontalAlignment="Center" Margin="0 10 0 0"/>
                             <TextBox x:Name="TituloTextBox" MaxLength="30" Style="{DynamicResource TextBoxes}" Tag="Título" ></TextBox>
                             <TextBox x:Name="AutorTextBox" MaxLength="50" Style="{DynamicResource TextBoxes}" Tag="Autor" ></TextBox>
                             <TextBox x:Name="EditorialTextBox" MaxLength="30" Style="{DynamicResource TextBoxes}" Tag="Editorial" ></TextBox>
                             <TextBox x:Name="UbicacionTextBox" MaxLength="50" Style="{DynamicResource TextBoxes}" Tag="Ubicación" ></TextBox>
-                            <TextBox x:Name="EjemplaresTextBox" MaxLength="10" Style="{DynamicResource TextBoxes}" Tag="Cantidad Ejemplares" Cursor="IBeam"/>
                             <!--Botón para guardar los datos-->
                             <Button x:Name="Guardar" Content="Guardar" Width="auto" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" Margin="20" Click="Guardar_Click"/>
                         </StackPanel>
-                        <Border Grid.Column="2" BorderThickness="1" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Margin="10,0,0,0"/>
+                        <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" BorderThickness="1" BorderBrush="Transparent" Background="{DynamicResource Gris3}" CornerRadius="5" Margin="20,0,0,0"/>
                         <!--Data grid para Mostrar los Libros Guardados-->
-                        <DataGrid Name="LibrosDataGrid" Grid.Column="2" Margin="20 10 10 10" AutoGenerateColumns="false" ItemsSource="{Binding Libros}"
+                        <DataGrid Name="LibrosDataGrid" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Margin="30 20 10 30" AutoGenerateColumns="false" ItemsSource="{Binding Libros}"
                                   SelectionChanged="LibrosDataGrid_SelectionChanged"
                                   Width="1240"
-                                  HorizontalAlignment="Center">
+                                  HorizontalAlignment="Center"
+                                  >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*"/>
+                                <DataGridTextColumn Header="Título" Binding="{Binding Título}" Width="*"/>
                                 <DataGridTextColumn Header="Autor"  Binding="{Binding Autor}" Width="*"/>
                                 <DataGridTextColumn Header="Editorial" Binding="{Binding Editorial}" Width="*"/>
-                                <DataGridTextColumn Header="Ubicación" Binding="{Binding Ubicacion}" Width="*"/>
-                                <DataGridTextColumn Header="Cantidad Ejemplares" Binding="{Binding Recibidos}" Width="*"/>
+                                <DataGridTextColumn Header="Ubicación" Binding="{Binding Ubicación}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                        <Button x:Name="Modificar" Content="Actualizar" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8"/>
+                        <Button x:Name="Eliminar" Content="Eliminar" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{DynamicResource ButtonStyle}" Width="110" Height="36.8"/>
                     </Grid>
                 </TabItem>
                 <!--Pestaña Préstamos-->

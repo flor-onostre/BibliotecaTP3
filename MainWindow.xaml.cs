@@ -33,14 +33,17 @@ namespace biblioteca
 
             MuestraLibros();
 
-            Guardar.Click += Guardar_Click; // Asignar evento al botón
-            GuardarPrestamo.Click += GuardarPrestamo_Click; // Asignar evento al botón de guardar préstamo
         }
+
+
+
 
         SqlConnection miConexionSql; //Crear clase de conexión
 
-        //Clases para libros
 
+
+
+        //Clases para libros
         private void MuestraLibros()
         {
             string consulta = "SELECT * FROM LIBRO";
@@ -53,7 +56,7 @@ namespace biblioteca
 
                 adapter.Fill(LibroTabla);
 
-                LibrosDataGrid.DisplayMemberPath = "Titulo";
+                LibrosDataGrid.DisplayMemberPath = "Título";
                 LibrosDataGrid.SelectedValuePath = "IdLibro";
                 LibrosDataGrid.ItemsSource = LibroTabla.DefaultView;
             }
@@ -62,54 +65,63 @@ namespace biblioteca
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Clase para los prestamos
-
         // Método para manejar el evento del botón Guardar
         private void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            string titulo = TituloTextBox.Text;
-            string autor = AutorTextBox.Text;
-            string editorial = EditorialTextBox.Text;
-            string ubicacion = UbicacionTextBox.Text;
-            Int64 ejemplares = Convert.ToInt64(EjemplaresTextBox.Text);
 
-            string consulta = "INSERT INTO LIBRO (titulo, autor, editorial) VALUES (@titulo, @autor, @editorial)";
-            SqlCommand miSqlCommand = new SqlCommand(consulta, miConexionSql); 
-            miConexionSql.Open();
-            
-
-            // Validar que todos los campos obligatorios estén llenos
-            if (string.IsNullOrWhiteSpace(TituloTextBox.Text) || // Verifica que no esté vacío o sólo con espacios
-                string.IsNullOrWhiteSpace(AutorTextBox.Text) ||
-                string.IsNullOrWhiteSpace(EditorialTextBox.Text) ||
-                string.IsNullOrWhiteSpace(UbicacionTextBox.Text) ||
-                !int.TryParse(EjemplaresTextBox.Text, out int recibidos)) // Agregado UbiTextBox.Text
+            // Validar que todos los campos obligatorios estén llenos antes de realizar el guardado
+            if (string.IsNullOrEmpty(TituloTextBox.Text) ||
+                string.IsNullOrEmpty(AutorTextBox.Text) ||
+                string.IsNullOrEmpty(EditorialTextBox.Text) ||
+                string.IsNullOrEmpty(UbicacionTextBox.Text))
             {
                 MessageBox.Show("Faltan datos.", "Alerta", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return; // Detiene el proceso si falta algún dato
             }
+
+            string titulo = TituloTextBox.Text;
+            string autor = AutorTextBox.Text;
+            string editorial = EditorialTextBox.Text;
+            string ubicacion = UbicacionTextBox.Text;
+
+            try
+            {
+                miConexionSql.Open();
+
+                // Inserta el libro en la tabla LIBRO
+                string consultaLibro = "INSERT INTO LIBRO (Título, Autor, Editorial, Ubicación) VALUES (@titulo, @autor, @editorial, @ubicacion);";
+                SqlCommand miSqlCommand = new SqlCommand(consultaLibro, miConexionSql);
+
+                miSqlCommand.Parameters.AddWithValue("@titulo", titulo);
+                miSqlCommand.Parameters.AddWithValue("@autor", autor);
+                miSqlCommand.Parameters.AddWithValue("@editorial", editorial);
+                miSqlCommand.Parameters.AddWithValue("@ubicacion", ubicacion);
+
+                miSqlCommand.ExecuteNonQuery(); // Ejecutar el comando
+
+                miConexionSql.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar el libro: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Cerrar la conexión
+                miConexionSql.Close();
+            }
+
+            MuestraLibros(); // Actualiza la lista de libros
 
             // Limpiar los campos después de guardar
             TituloTextBox.Clear();
             AutorTextBox.Clear();
             EditorialTextBox.Clear();
             UbicacionTextBox.Clear();
-            EjemplaresTextBox.Clear();
         }
+
+
+
 
         private void GuardarPrestamo_Click(object sender, RoutedEventArgs e)
         {

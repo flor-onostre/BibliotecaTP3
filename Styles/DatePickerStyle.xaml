@@ -36,7 +36,7 @@
                                 <Button x:Name="PART_Button"
                                         Style="{DynamicResource ButtonCalendarStyle}"
                                         Grid.Column="1">
-                                    <Image Source="/Data/icons8-calendar-24.png" Height="5" Width="5" />
+                                    <Image Source="/Data/icons8-calendar-24.png" Height="15" Width="15" />
                                 </Button>
                                 <Popup x:Name="PART_Popup"
                                         AllowsTransparency="true"
