@@ -126,6 +126,13 @@ namespace biblioteca
 
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
+
+            if (LibrosDataGrid.SelectedValue == null)
+            {
+                MessageBox.Show("Por favor, selecciona un libro.");
+                return;
+            }
+
             try
             {
                 miConexionSql.Open();
